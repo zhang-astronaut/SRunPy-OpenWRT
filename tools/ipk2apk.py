@@ -157,7 +157,7 @@ def create_pkginfo_content(
 
     # apk expects pkgver in <version>-r<release> form (e.g. 1.0.0-r1).
     raw_ver = metadata.get("Version", "1.0.0")
-    pkgver = raw_ver if "-r" in raw_ver else f"{raw_ver}-r1"
+    pkgver = raw_ver if re.search(r"-r\d+$", raw_ver) else f"{raw_ver}-r1"
 
     pkginfo = [
         f"pkgname = {metadata.get('Package', 'unknown')}",
